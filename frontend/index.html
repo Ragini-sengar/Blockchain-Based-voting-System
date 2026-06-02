@@ -1,70 +1,172 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Advanced Blockchain Voting System</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js"></script>
+    <meta charset="UTF-8">
+    <title>JanKalyan Vote</title>
+    <link rel="stylesheet" href="login.css">
 </head>
-
 <body>
 
-<h1>🗳 Blockchain Voting System</h1>
+<header class="navbar">
+    <div class="brand">
+        <div class="logo">✓</div>
+        <div>
+            <h2>JanKalyan <span>Vote</span></h2>
+            <p>Secure. Transparent. Empowering.</p>
+        </div>
+    </div>
 
-<button id="connectBtn">Connect Wallet</button>
+    <nav>
+        <a class="active">Home</a>
+        <a>Schemes</a>
+        <a>How It Works</a>
+        <a>About Us</a>
+        <a>Contact</a>
+    </nav>
 
-<p id="walletAddress">
-Not Connected
-</p>
+    <button class="login-nav">Login / Register</button>
+</header>
 
-<hr>
+<section class="hero">
+    <div class="left">
+        <p class="tag">BLOCKCHAIN POWERED</p>
+        <h1>
+            Empowering Citizens <br>
+            Through Transparent <br>
+            <span>Welfare Scheme Voting</span>
+        </h1>
 
-<h2>Admin Panel</h2>
+        <p class="desc">
+            A secure, transparent and tamper-proof platform for citizens
+            to vote for public welfare schemes. Your vote, your future,
+            our commitment.
+        </p>
 
-<input
-id="candidateName"
-placeholder="Candidate Name">
+        <div class="feature">
+            <div>🛡</div>
+            <p><b>Secure & Transparent</b><br>Your vote is recorded on blockchain and cannot be altered.</p>
+        </div>
 
-<button id="addCandidateBtn">
-Add Candidate
-</button>
+        <div class="feature">
+            <div>👥</div>
+            <p><b>Eligible & Fair</b><br>Only eligible citizens can vote for schemes that matter to them.</p>
+        </div>
 
-<br><br>
+        <div class="feature">
+            <div>📊</div>
+            <p><b>Real-time Results</b><br>Track live voting results and scheme status anytime.</p>
+        </div>
+    </div>
 
-<input
-id="voterAddress"
-placeholder="Wallet Address">
+    <div class="visuals">
+        <div class="hex">🔐</div>
+        <div class="hex small">🗳</div>
+        <div class="hex small lower">👨‍👩‍👧‍👦</div>
+    </div>
 
-<button id="registerBtn">
-Register Voter
-</button>
+    <div class="login-card">
+        <h2>Welcome Back!</h2>
+        <p>Please login to continue</p>
 
-<br><br>
+        <div class="role-tabs">
+            <button id="userTab" class="selected" onclick="selectRole('user')">👤 As User</button>
+            <button id="adminTab" onclick="selectRole('admin')">🛡 As Admin</button>
+        </div>
 
-<button id="startBtn">
-Start Voting
-</button>
+        <div class="otp-line">
+            <span>Get OTP on:</span>
+            <label><input type="radio" name="otpMethod" value="email"> Email</label>
+            <label><input type="radio" name="otpMethod" value="mobile" checked> Mobile</label>
+        </div>
 
-<button id="endBtn">
-End Voting
-</button>
+        <div id="userLogin">
+            <label class="label">Aadhaar Number</label>
+            <div class="input-box">
+                <span>🪪</span>
+                <input id="aadhaarInput" maxlength="12" placeholder="Enter your 12-digit Aadhaar number">
+            </div>
+        </div>
 
-<hr>
+        <div id="adminLogin" style="display:none;">
+            <label class="label">Admin ID</label>
+            <div class="input-box">
+                <span>🔐</span>
+                <input id="adminIdInput" placeholder="Enter your Admin ID">
+            </div>
+        </div>
 
-<h2>Candidate List</h2>
+        <div class="captcha">
+            <input type="checkbox" id="captchaCheck">
+            <span>I'm not a robot</span>
+            <b>↻</b>
+        </div>
 
-<div id="candidateList"></div>
+        <button class="main-btn" onclick="sendOtp()">✈ Send OTP</button>
 
-<hr>
+        <div id="otpBox" class="otp-box">
+            <label class="label">Enter OTP</label>
+            <div class="input-box">
+                <span>🔢</span>
+                <input id="otpInput" maxlength="6" placeholder="Enter OTP">
+            </div>
+            <button class="main-btn" onclick="verifyOtp()">Verify OTP</button>
+        </div>
 
-<h2>Winner</h2>
+        <div class="divider">
+            <span></span>
+            <p>OR</p>
+            <span></span>
+        </div>
 
-<button id="winnerBtn">
-Show Winner
-</button>
+        <p class="resend">↻ Didn't receive OTP? <a onclick="sendOtp()">Resend OTP</a></p>
+        <p class="safe">🔒 Your data is protected and encrypted</p>
+    </div>
+</section>
 
-<p id="winnerResult"></p>
+<div class="stats">
+    <div>📋 <b>25+</b><br>Welfare Schemes</div>
+    <div>👥 <b>10K+</b><br>Active Voters</div>
+    <div>🛡 <b>100%</b><br>Transparent</div>
+    <div>🔐 <b>Secure</b><br>Blockchain</div>
+</div>
 
-<script src="app.js"></script>
+<div id="chatWindow" class="chat-window">
 
+    <h3>JanKalyan Help Assistant</h3>
+
+    <button onclick="loginHelp('login')">
+        How do I login?
+    </button>
+
+    <button onclick="loginHelp('otp')">
+        I didn't receive OTP
+    </button>
+
+    <button onclick="loginHelp('aadhaar')">
+        What is Aadhaar verification?
+    </button>
+
+    <button onclick="loginHelp('email')">
+        Can I login using email?
+    </button>
+
+    <button onclick="loginHelp('secure')">
+        Is my data secure?
+    </button>
+
+    <button onclick="loginHelp('blockchain')">
+        What is blockchain voting?
+    </button>
+
+    <button onclick="loginHelp('support')">
+        Contact support
+    </button>
+
+    <p id="loginChatAnswer"></p>
+
+</div>
+<footer>© 2026 JanKalyan Vote. All rights reserved.</footer>
+
+<script src="login.js"></script>
 </body>
 </html>

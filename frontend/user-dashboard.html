@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard | JanKalyan Vote</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+
+<header class="dashboard-nav">
+    <div>
+        <h2>JanKalyan <span>Vote</span></h2>
+        <p>User Dashboard</p>
+    </div>
+
+    <button onclick="logout()">Logout</button>
+</header>
+
+<section class="dashboard-hero">
+    <div>
+        <h1>Welcome, Citizen 👋</h1>
+        <p>View eligible welfare schemes and cast your vote securely on blockchain.</p>
+    </div>
+
+    <button class="wallet-btn" onclick="connectWallet()">
+        Connect MetaMask
+    </button>
+</section>
+
+<section class="info-card">
+    <h3>Wallet Status</h3>
+    <p id="walletAddress">Wallet not connected</p>
+</section>
+
+<section class="schemes-section">
+    <h2>Eligible Welfare Schemes</h2>
+    <p class="hint">Only schemes matching your age, income, gender and region are shown here.</p>
+
+    <div id="schemeList" class="scheme-grid"></div>
+</section>
+
+<div class="chatbot" onclick="toggleChat()">
+    <div class="chat-bubble">
+        <b>Need Help?</b>
+        <p>Click for assistance</p>
+    </div>
+    <div class="bot">🤖</div>
+</div>
+
+<div id="chatWindow" class="chat-window">
+    <h3>Help Assistant</h3>
+
+    <button onclick="chatAnswer('vote')">How do I vote?</button>
+    <button onclick="chatAnswer('eligible')">Why can't I see a scheme?</button>
+    <button onclick="chatAnswer('metamask')">Why do I need MetaMask?</button>
+    <button onclick="chatAnswer('change')">Can my vote be changed?</button>
+
+    <p id="chatAnswer"></p>
+</div>
+
+<script src="user.js"></script>
+
+</body>
+</html>

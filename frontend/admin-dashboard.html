@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | JanKalyan Vote</title>
+    <link rel="stylesheet" href="dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js"></script>
+</head>
+<body>
+
+<header class="dashboard-nav">
+    <div>
+        <h2>JanKalyan <span>Vote</span></h2>
+        <p>Admin Dashboard</p>
+    </div>
+
+    <button onclick="logout()">Logout</button>
+</header>
+
+<section class="dashboard-hero">
+    <div>
+        <h1>Admin Control Panel 🛡</h1>
+        <p>Create welfare schemes, manage voters, and monitor live blockchain voting.</p>
+    </div>
+
+    <button class="wallet-btn" onclick="connectWallet()">
+        Connect Admin Wallet
+    </button>
+</section>
+
+<section class="info-card">
+    <h3>Admin Wallet Status</h3>
+    <p id="walletAddress">Wallet not connected</p>
+</section>
+
+<section class="admin-layout">
+
+    <div class="admin-card">
+        <h2>Create Welfare Scheme</h2>
+
+        <input id="schemeName" placeholder="Scheme Name">
+        <textarea id="schemeDescription" placeholder="Scheme Description"></textarea>
+
+        <div class="form-row">
+            <input id="ageMin" type="number" placeholder="Minimum Age">
+            <input id="ageMax" type="number" placeholder="Maximum Age">
+        </div>
+
+        <select id="gender">
+            <option value="Other">All Genders</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+
+        <input id="incomeLimit" type="number" placeholder="Income Limit">
+
+        <input id="region" placeholder="Region / State / All">
+
+        <div class="form-row">
+            <input id="startDate" type="date">
+            <input id="expiryDate" type="date">
+        </div>
+
+        <button onclick="createScheme()">
+            Create Scheme
+        </button>
+    </div>
+
+    <div class="admin-card">
+        <h2>Register Voter Wallet</h2>
+
+        <input id="voterWallet" placeholder="Enter voter wallet address">
+
+        <button onclick="registerVoter()">
+            Register Voter on Blockchain
+        </button>
+    </div>
+
+    <div class="admin-card">
+        <h2>Voting Controls</h2>
+
+        <button onclick="startVoting()" class="green-btn">
+            Start Voting
+        </button>
+
+        <button onclick="endVoting()" class="red-btn">
+            End Voting
+        </button>
+    </div>
+
+</section>
+
+<section class="schemes-section">
+    <h2>Live Voting Results</h2>
+    <p class="hint">Results are fetched from MySQL vote logs and blockchain transaction records.</p>
+
+    <button class="wallet-btn" onclick="loadResults()">
+        Refresh Results
+    </button>
+
+    <div id="resultsList" class="scheme-grid"></div>
+</section>
+
+<section class="schemes-section">
+    <h2>Blockchain Schemes</h2>
+    <p class="hint">Schemes currently registered on the smart contract.</p>
+
+    <button class="wallet-btn" onclick="loadBlockchainSchemes()">
+        Refresh Blockchain Schemes
+    </button>
+
+    <div id="blockchainSchemes" class="scheme-grid"></div>
+</section>
+
+<div class="chatbot" onclick="toggleChat()">
+    <div class="chat-bubble">
+        <b>Admin Help</b>
+        <p>Click for assistance</p>
+    </div>
+    <div class="bot">🤖</div>
+</div>
+
+<div id="chatWindow" class="chat-window">
+    <h3>Admin Assistant</h3>
+
+    <button onclick="chatAnswer('scheme')">How to create a scheme?</button>
+    <button onclick="chatAnswer('voter')">How to register voters?</button>
+    <button onclick="chatAnswer('start')">How to start voting?</button>
+    <button onclick="chatAnswer('end')">How to end voting?</button>
+    <button onclick="chatAnswer('votes')">Can admin modify votes?</button>
+    <button onclick="chatAnswer('expiry')">How does expiry date work?</button>
+    <button onclick="chatAnswer('results')">How do live results work?</button>
+    <button onclick="chatAnswer('blockchain')">Why is blockchain used?</button>
+    <button onclick="chatAnswer('closed')">What happens if scheme is closed?</button>
+    <button onclick="chatAnswer('support')">Contact support</button>
+
+    <p id="chatAnswer"></p>
+</div>
+<script src="admin.js"></script>
+
+</body>
+</html>
