@@ -1,0 +1,49 @@
+{
+  "_format": "hh3-sol-build-info-1",
+  "id": "solc-0_8_28-7f1ef5cd756f82d0f610f09acfd0d69a1218e135",
+  "solcVersion": "0.8.28",
+  "solcLongVersion": "0.8.28+commit.7893614a",
+  "compilerType": "solc",
+  "toolVersions": {
+    "hardhat": "3.7.0"
+  },
+  "userSourceNameMap": {
+    "contracts/Voting.sol": "project/contracts/Voting.sol"
+  },
+  "input": {
+    "language": "Solidity",
+    "settings": {
+      "evmVersion": "cancun",
+      "optimizer": {
+        "enabled": true,
+        "runs": 200
+      },
+      "outputSelection": {
+        "*": {
+          "": [
+            "ast"
+          ],
+          "*": [
+            "abi",
+            "evm.bytecode.linkReferences",
+            "evm.bytecode.object",
+            "evm.bytecode.opcodes",
+            "evm.bytecode.sourceMap",
+            "evm.deployedBytecode.immutableReferences",
+            "evm.deployedBytecode.linkReferences",
+            "evm.deployedBytecode.object",
+            "evm.deployedBytecode.opcodes",
+            "evm.deployedBytecode.sourceMap",
+            "evm.methodIdentifiers"
+          ]
+        }
+      },
+      "remappings": []
+    },
+    "sources": {
+      "project/contracts/Voting.sol": {
+        "content": "// SPDX-License-Identifier: MIT\r\npragma solidity ^0.8.20;\r\n\r\ncontract Voting {\r\n    address public admin;\r\n    bool public votingStarted;\r\n    bool public votingEnded;\r\n\r\n    struct Scheme {\r\n        uint256 schemeId;\r\n        string name;\r\n        uint256 voteCount;\r\n    }\r\n\r\n    Scheme[] public schemes;\r\n\r\n    mapping(uint256 => bool) public schemeExists;\r\n    mapping(address => bool) public registeredVoters;\r\n    mapping(address => bool) public hasVoted;\r\n\r\n    constructor() {\r\n        admin = msg.sender;\r\n    }\r\n\r\n    modifier onlyAdmin() {\r\n        require(msg.sender == admin, \"Only admin can perform this action\");\r\n        _;\r\n    }\r\n\r\n    function addScheme(uint256 _schemeId, string memory _name) public onlyAdmin {\r\n        require(!votingStarted, \"Cannot add scheme after voting starts\");\r\n        require(!schemeExists[_schemeId], \"Scheme already exists\");\r\n\r\n        schemes.push(Scheme(_schemeId, _name, 0));\r\n        schemeExists[_schemeId] = true;\r\n    }\r\n\r\n    function registerVoter(address _voter) public onlyAdmin {\r\n        registeredVoters[_voter] = true;\r\n    }\r\n\r\n    function startVoting() public onlyAdmin {\r\n        require(schemes.length > 1, \"Add at least 2 schemes\");\r\n        votingStarted = true;\r\n        votingEnded = false;\r\n    }\r\n\r\n    function endVoting() public onlyAdmin {\r\n        require(votingStarted, \"Voting has not started\");\r\n        votingEnded = true;\r\n    }\r\n\r\n    function vote(uint256 schemeIndex) public {\r\n        require(votingStarted, \"Voting has not started\");\r\n        require(!votingEnded, \"Voting has ended\");\r\n        require(registeredVoters[msg.sender], \"You are not registered\");\r\n        require(!hasVoted[msg.sender], \"You have already voted\");\r\n        require(schemeIndex < schemes.length, \"Invalid scheme\");\r\n\r\n        hasVoted[msg.sender] = true;\r\n        schemes[schemeIndex].voteCount++;\r\n    }\r\n\r\n    function getSchemes() public view returns (Scheme[] memory) {\r\n        return schemes;\r\n    }\r\n\r\n    function getWinner() public view returns (\r\n        uint256 winnerSchemeId,\r\n        string memory winnerName,\r\n        uint256 winnerVotes\r\n    ) {\r\n        require(votingEnded, \"Voting has not ended yet\");\r\n\r\n        uint256 winnerIndex = 0;\r\n\r\n        for (uint256 i = 1; i < schemes.length; i++) {\r\n            if (schemes[i].voteCount > schemes[winnerIndex].voteCount) {\r\n                winnerIndex = i;\r\n            }\r\n        }\r\n\r\n        return (\r\n            schemes[winnerIndex].schemeId,\r\n            schemes[winnerIndex].name,\r\n            schemes[winnerIndex].voteCount\r\n        );\r\n    }\r\n}"
+      }
+    }
+  }
+}

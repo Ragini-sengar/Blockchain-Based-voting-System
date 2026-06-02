@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Advanced Blockchain Voting System</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/ethers@6.13.2/dist/ethers.umd.min.js"></script>
+</head>
+
+<body>
+
+<h1>🗳 Blockchain Voting System</h1>
+
+<button id="connectBtn">Connect Wallet</button>
+
+<p id="walletAddress">
+Not Connected
+</p>
+
+<hr>
+
+<h2>Admin Panel</h2>
+
+<input
+id="candidateName"
+placeholder="Candidate Name">
+
+<button id="addCandidateBtn">
+Add Candidate
+</button>
+
+<br><br>
+
+<input
+id="voterAddress"
+placeholder="Wallet Address">
+
+<button id="registerBtn">
+Register Voter
+</button>
+
+<br><br>
+
+<button id="startBtn">
+Start Voting
+</button>
+
+<button id="endBtn">
+End Voting
+</button>
+
+<hr>
+
+<h2>Candidate List</h2>
+
+<div id="candidateList"></div>
+
+<hr>
+
+<h2>Winner</h2>
+
+<button id="winnerBtn">
+Show Winner
+</button>
+
+<p id="winnerResult"></p>
+
+<script src="app.js"></script>
+
+</body>
+</html>
