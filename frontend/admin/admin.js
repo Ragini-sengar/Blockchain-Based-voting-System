@@ -389,5 +389,6 @@ function chatAnswer(type){
 }
 function logout(){
     localStorage.removeItem("admin_id");
-    window.location.href = "index.html";
+    localStorage.clear();
+    window.location.replace("../index.html");
 }

@@ -235,5 +235,5 @@ function chatAnswer(type){
 }
 function logout(){
     localStorage.removeItem("aadhaar");
-    window.location.href = "index.html";
+    window.location.href = "../index.html";
 }

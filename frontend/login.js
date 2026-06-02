@@ -116,10 +116,10 @@ async function verifyOtp(){
 
         if(selectedRole === "user"){
             localStorage.setItem("aadhaar", savedAadhaar);
-            window.location.href = "user-dashboard.html";
+            window.location.href = "user/user-dashboard.html";
         }else{
             localStorage.setItem("admin_id", savedAdminId);
-            window.location.href = "admin-dashboard.html";
+            window.location.href = "admin/admin-dashboard.html";
         }
     }else{
         alert(data.message);
